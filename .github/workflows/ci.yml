@@ -1,0 +1,74 @@
+name: CI - MLOps Churn Dicoding
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Python 3.10
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Verify dataset exists
+        run: |
+          if [ ! -f data/telco_churn.csv ]; then
+            echo "ERROR: data/telco_churn.csv tidak ditemukan"
+            exit 1
+          fi
+
+      - name: Run training
+        run: |
+          cd $GITHUB_WORKSPACE
+          python src/train.py
+
+      - name: Verify model files exist
+        run: |
+          test -f models/model.pkl && echo "model.pkl OK"
+          test -f models/feature_columns.pkl && echo "feature_columns.pkl OK"
+
+      - name: Start FastAPI server
+        run: |
+          uvicorn app.main:app --host 0.0.0.0 --port 8000 &
+          sleep 8
+
+      - name: Health check
+        run: curl -f http://localhost:8000/health
+
+      - name: Test predict endpoint
+        run: |
+          curl -f -X POST http://localhost:8000/predict \
+            -H "Content-Type: application/json" \
+            -d '{
+              "gender": "Female",
+              "SeniorCitizen": 0,
+              "Partner": "Yes",
+              "Dependents": "No",
+              "tenure": 12,
+              "PhoneService": "Yes",
+              "MultipleLines": "No",
+              "InternetService": "Fiber optic",
+              "OnlineSecurity": "No",
+              "OnlineBackup": "Yes",
+              "DeviceProtection": "No",
+              "TechSupport": "No",
+              "StreamingTV": "No",
+              "StreamingMovies": "No",
+              "Contract": "Month-to-month",
+              "PaperlessBilling": "Yes",
+              "PaymentMethod": "Electronic check",
+              "MonthlyCharges": 70.35,
+              "TotalCharges": 845.50
+            }'
