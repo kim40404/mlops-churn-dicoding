@@ -1,0 +1,20 @@
+name: mlops-churn
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python>=3.10
+  - pip
+  - pip:
+    - pandas
+    - scikit-learn
+    - mlflow
+    - fastapi
+    - uvicorn
+    - joblib
+    - prometheus-client
+    - python-multipart
+    - httpx
+    - numpy
+    - pydantic
+    - dvc
