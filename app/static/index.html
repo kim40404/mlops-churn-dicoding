@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Churn Predictor - Enterprise Edition</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
+
+    <div class="container glass-panel">
+        <header>
+            <h1>AI Churn Predictor</h1>
+            <p>Telco Customer Retention System</p>
+        </header>
+
+        <main>
+            <div class="form-section">
+                <div class="actions">
+                    <button class="btn btn-secondary" onclick="loadProfile('loyal')">Load Loyal Customer</button>
+                    <button class="btn btn-danger" onclick="loadProfile('risk')">Load High-Risk Customer</button>
+                </div>
+
+                <form id="predictForm">
+                    <div class="input-grid">
+                        <div class="input-group">
+                            <label>Tenure (Months)</label>
+                            <input type="number" id="tenure" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Monthly Charges ($)</label>
+                            <input type="number" step="0.01" id="MonthlyCharges" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Total Charges ($)</label>
+                            <input type="number" step="0.01" id="TotalCharges" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Contract Type</label>
+                            <select id="Contract">
+                                <option value="Month-to-month">Month-to-month</option>
+                                <option value="One year">One year</option>
+                                <option value="Two year">Two year</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label>Internet Service</label>
+                            <select id="InternetService">
+                                <option value="Fiber optic">Fiber optic</option>
+                                <option value="DSL">DSL</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label>Tech Support</label>
+                            <select id="TechSupport">
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                                <option value="No internet service">No internet</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- Hidden fields for the API requirement -->
+                    <input type="hidden" id="gender" value="Male">
+                    <input type="hidden" id="SeniorCitizen" value="0">
+                    <input type="hidden" id="Partner" value="Yes">
+                    <input type="hidden" id="Dependents" value="Yes">
+                    <input type="hidden" id="PhoneService" value="Yes">
+                    <input type="hidden" id="MultipleLines" value="No">
+                    <input type="hidden" id="OnlineSecurity" value="Yes">
+                    <input type="hidden" id="OnlineBackup" value="Yes">
+                    <input type="hidden" id="DeviceProtection" value="Yes">
+                    <input type="hidden" id="StreamingTV" value="No">
+                    <input type="hidden" id="StreamingMovies" value="No">
+                    <input type="hidden" id="PaperlessBilling" value="Yes">
+                    <input type="hidden" id="PaymentMethod" value="Electronic check">
+
+                    <button type="submit" class="btn btn-primary btn-glow" id="predictBtn">Run AI Prediction</button>
+                </form>
+            </div>
+
+            <div class="result-section" id="resultCard">
+                <div class="spinner" id="spinner"></div>
+                <div id="resultContent" class="hidden">
+                    <h2 id="resultStatus">Processing...</h2>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="probabilityFill"></div>
+                    </div>
+                    <p class="probability-text">Churn Probability: <span id="probabilityText">0%</span></p>
+                    <p class="insight" id="insightText">Insight will appear here.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const profiles = {
+            loyal: { tenure: 72, MonthlyCharges: 24.50, TotalCharges: 1750.00, Contract: "Two year", InternetService: "No", TechSupport: "No internet service" },
+            risk: { tenure: 1, MonthlyCharges: 95.00, TotalCharges: 95.00, Contract: "Month-to-month", InternetService: "Fiber optic", TechSupport: "No" }
+        };
+
+        function loadProfile(type) {
+            const data = profiles[type];
+            for (let key in data) {
+                document.getElementById(key).value = data[key];
+            }
+            document.getElementById("resultContent").classList.add("hidden");
+        }
+
+        // Load default on startup
+        loadProfile('loyal');
+
+        document.getElementById('predictForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const btn = document.getElementById('predictBtn');
+            const spinner = document.getElementById('spinner');
+            const resultContent = document.getElementById('resultContent');
+            
+            btn.innerText = "Analyzing...";
+            btn.disabled = true;
+            resultContent.classList.add("hidden");
+            spinner.style.display = "block";
+
+            // Gather all inputs
+            const payload = {};
+            document.querySelectorAll('input, select').forEach(el => {
+                if(el.id) {
+                    payload[el.id] = el.type === 'number' ? Number(el.value) : el.value;
+                }
+            });
+
+            try {
+                const response = await fetch('/predict', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                
+                const result = await response.json();
+                
+                setTimeout(() => {
+                    spinner.style.display = "none";
+                    resultContent.classList.remove("hidden");
+                    
+                    const prob = Math.round(result.probability_churn * 100);
+                    document.getElementById('probabilityText').innerText = prob + "%";
+                    document.getElementById('probabilityFill').style.width = prob + "%";
+                    
+                    const statusEl = document.getElementById('resultStatus');
+                    const fillEl = document.getElementById('probabilityFill');
+                    const insightEl = document.getElementById('insightText');
+
+                    if (result.prediction === 1) {
+                        statusEl.innerText = "⚠️ High Churn Risk";
+                        statusEl.style.color = "#ff4b4b";
+                        fillEl.style.background = "linear-gradient(90deg, #ff4b4b, #ff7676)";
+                        insightEl.innerText = "Action required! Send a 50% discount promotional email immediately to retain this customer.";
+                    } else {
+                        statusEl.innerText = "✅ Loyal Customer";
+                        statusEl.style.color = "#00e676";
+                        fillEl.style.background = "linear-gradient(90deg, #00e676, #69f0ae)";
+                        insightEl.innerText = "This customer is stable. Continue providing excellent service.";
+                    }
+                    
+                    btn.innerText = "Run AI Prediction";
+                    btn.disabled = false;
+                }, 800); // Fake delay for dramatic AI effect
+
+            } catch (error) {
+                alert("Error connecting to AI Engine");
+                btn.innerText = "Run AI Prediction";
+                btn.disabled = false;
+                spinner.style.display = "none";
+            }
+        });
+    </script>
+</body>
+</html>

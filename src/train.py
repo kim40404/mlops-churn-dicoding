@@ -30,47 +30,32 @@ if __name__ == "__main__":
     mlflow.set_tracking_uri("mlruns")
     mlflow.set_experiment("churn-prediction-experiment")
 
+    # Ponytail rule: The best code is the code never written. Let MLflow do the heavy lifting.
+    mlflow.sklearn.autolog()
+
     # Langkah 8: Mulai MLflow run
     with mlflow.start_run():
-        # a) Definisikan parameter
-        n_estimators = 100
-        random_state = 42
-        test_size = 0.2
-
-        # b) Log parameter ke MLflow
-        mlflow.log_param("n_estimators", n_estimators)
-        mlflow.log_param("random_state", random_state)
-        mlflow.log_param("test_size", test_size)
-
-        # c) Train model
-        model = RandomForestClassifier(n_estimators=n_estimators, random_state=random_state)
+        model = RandomForestClassifier(n_estimators=100, random_state=42)
         model.fit(X_train, y_train)
 
-        # d) Prediksi
+        # Prediksi & Hitung metrics
         y_pred = model.predict(X_test)
+        metrics = {
+            "accuracy": accuracy_score(y_test, y_pred),
+            "precision": precision_score(y_test, y_pred, average="weighted"),
+            "recall": recall_score(y_test, y_pred, average="weighted"),
+            "f1_score": f1_score(y_test, y_pred, average="weighted")
+        }
+        
+        # Log metrics in one line
+        mlflow.log_metrics(metrics)
 
-        # e) Hitung metrics
-        accuracy  = accuracy_score(y_test, y_pred)
-        precision = precision_score(y_test, y_pred, average="weighted")
-        recall    = recall_score(y_test, y_pred, average="weighted")
-        f1        = f1_score(y_test, y_pred, average="weighted")
-
-        # f) Log semua metrics ke MLflow
-        mlflow.log_metric("accuracy", accuracy)
-        mlflow.log_metric("precision", precision)
-        mlflow.log_metric("recall", recall)
-        mlflow.log_metric("f1_score", f1)
-
-        # g) Simpan model ke MLflow artifacts
-        mlflow.sklearn.log_model(model, "random_forest_model")
-
-        # h) Simpan model ke file lokal
+        # Simpan model ke file lokal untuk dipakai FastAPI
         joblib.dump(model, "models/model.pkl")
 
-        # i) Print semua hasil ke terminal
-        print(f"Accuracy  : {accuracy:.4f}")
-        print(f"Precision : {precision:.4f}")
-        print(f"Recall    : {recall:.4f}")
-        print(f"F1 Score  : {f1:.4f}")
-        print("Model saved to models/model.pkl")
+        # Print hasil
+        for k, v in metrics.items():
+            print(f"{k.capitalize():<10} : {v:.4f}")
+            
+        print("\nModel saved to models/model.pkl")
         print("Feature columns saved to models/feature_columns.pkl")

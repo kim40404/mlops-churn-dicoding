@@ -1,5 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 from pydantic import BaseModel
 from prometheus_client import Counter, Histogram, generate_latest, CONTENT_TYPE_LATEST
 from starlette.responses import Response
@@ -30,6 +32,15 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Setup UI (Ponytail rule: reuse FastAPI, no new dependency)
+os.makedirs("app/static", exist_ok=True)
+app.mount("/static", StaticFiles(directory="app/static"), name="static")
+
+@app.get("/")
+def serve_ui():
+    return FileResponse("app/static/index.html")
+
 
 # Prometheus metrics
 PREDICTION_COUNTER = Counter(
@@ -74,15 +85,22 @@ def predict(input_data: PredictInput):
     if model is None or feature_columns is None:
         raise HTTPException(status_code=500, detail="Model or feature columns are not loaded.")
 
-    # Convert input ke DataFrame 1 baris
+    # Convert input to dictionary
     input_dict = input_data.model_dump()
-    df = pd.DataFrame([input_dict])
     
-    # Terapkan pd.get_dummies(drop_first=True) pada kolom object
-    df_encoded = pd.get_dummies(df, drop_first=True)
+    # Ponytail rule: pd.get_dummies on a 1-row DataFrame drops categories if drop_first=True. 
+    # We map directly to feature_columns for a robust, bug-free O(1) mapping.
+    processed_row = {col: 0 for col in feature_columns}
     
-    # Reindex kolom DataFrame menggunakan feature_columns
-    df_reindexed = df_encoded.reindex(columns=feature_columns, fill_value=0)
+    for key, value in input_dict.items():
+        if key in ['SeniorCitizen', 'tenure', 'MonthlyCharges', 'TotalCharges']:
+            processed_row[key] = value
+        else:
+            dummy_name = f"{key}_{value}"
+            if dummy_name in processed_row:
+                processed_row[dummy_name] = 1
+                
+    df_reindexed = pd.DataFrame([processed_row])
     
     # Prediksi
     prediction = model.predict(df_reindexed)[0]
