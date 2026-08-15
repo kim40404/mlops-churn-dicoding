@@ -10,3 +10,4 @@ httpx
 numpy
 pydantic
 dvc
+lifelines

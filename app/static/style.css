@@ -229,6 +229,44 @@ select option { background: #1e293b; }
     margin-bottom: 20px;
 }
 
+.survival-stats {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+    justify-content: center;
+}
+
+.stat-box {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 10px 15px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.stat-box.warning {
+    border-color: rgba(239, 68, 68, 0.5);
+    background: rgba(239, 68, 68, 0.1);
+}
+
+.stat-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+.stat-value {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #fff;
+}
+
+.stat-box.warning .stat-value {
+    color: #ff7676;
+}
+
 .insight {
     font-size: 0.95rem;
     color: var(--text-muted);
@@ -240,4 +278,5 @@ select option { background: #1e293b; }
 
 @media (max-width: 768px) {
     main { grid-template-columns: 1fr; }
+    .survival-stats { flex-direction: column; }
 }

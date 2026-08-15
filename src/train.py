@@ -53,9 +53,21 @@ if __name__ == "__main__":
         # Simpan model ke file lokal untuk dipakai FastAPI
         joblib.dump(model, "models/model.pkl")
 
+        # --- SURVIVAL ANALYSIS ---
+        from lifelines import CoxPHFitter
+        df_cox = X_train.copy()
+        df_cox["Churn"] = y_train
+        
+        # Penalizer 0.1 untuk mencegah error collinearity (Ponytail rule: robust edge-case)
+        cph = CoxPHFitter(penalizer=0.1)
+        cph.fit(df_cox, duration_col="tenure", event_col="Churn")
+        joblib.dump(cph, "models/survival_model.pkl")
+        print("\nSurvival Model trained successfully.")
+
         # Print hasil
         for k, v in metrics.items():
             print(f"{k.capitalize():<10} : {v:.4f}")
             
         print("\nModel saved to models/model.pkl")
+        print("Survival model saved to models/survival_model.pkl")
         print("Feature columns saved to models/feature_columns.pkl")

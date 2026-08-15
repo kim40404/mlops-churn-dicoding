@@ -17,10 +17,12 @@ import os
 try:
     model = joblib.load("models/model.pkl")
     feature_columns = joblib.load("models/feature_columns.pkl")
+    survival_model = joblib.load("models/survival_model.pkl")
 except Exception as e:
     model = None
     feature_columns = None
-    print(f"Warning: Model or feature columns not found. {e}")
+    survival_model = None
+    print(f"Warning: Models not found. {e}")
 
 app = FastAPI()
 
@@ -102,9 +104,23 @@ def predict(input_data: PredictInput):
                 
     df_reindexed = pd.DataFrame([processed_row])
     
-    # Prediksi
+    # Prediksi Churn (Random Forest)
     prediction = model.predict(df_reindexed)[0]
     probabilities = model.predict_proba(df_reindexed)[0]
+    
+    # Survival Analysis & LTV Prediction
+    remaining_tenure = 0
+    ltv = 0.0
+    if survival_model is not None:
+        try:
+            expected_total_tenure = survival_model.predict_expectation(df_reindexed).iloc[0]
+            current_tenure = input_dict.get('tenure', 0)
+            monthly_charges = input_dict.get('MonthlyCharges', 0)
+            
+            remaining_tenure = max(0, expected_total_tenure - current_tenure)
+            ltv = remaining_tenure * monthly_charges
+        except Exception as e:
+            print(f"Survival prediction failed: {e}")
     
     # Tambah PREDICTION_COUNTER
     PREDICTION_COUNTER.inc()
@@ -116,7 +132,9 @@ def predict(input_data: PredictInput):
     return {
         "prediction": int(prediction),
         "probability_churn": float(probabilities[1]),
-        "probability_no_churn": float(probabilities[0])
+        "probability_no_churn": float(probabilities[0]),
+        "expected_remaining_months": round(float(remaining_tenure), 1),
+        "estimated_ltv_loss": round(float(ltv), 2)
     }
 
 @app.get("/metrics")

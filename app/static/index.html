@@ -94,6 +94,18 @@
                         <div class="progress-fill" id="probabilityFill"></div>
                     </div>
                     <p class="probability-text">Churn Probability: <span id="probabilityText">0%</span></p>
+                    
+                    <div class="survival-stats hidden" id="survivalStats">
+                        <div class="stat-box">
+                            <span class="stat-label">Expected Remaining Tenure</span>
+                            <span class="stat-value" id="remainingMonthsText">0 Months</span>
+                        </div>
+                        <div class="stat-box warning">
+                            <span class="stat-label">Estimated Revenue Loss (LTV)</span>
+                            <span class="stat-value" id="ltvLossText">$0.00</span>
+                        </div>
+                    </div>
+
                     <p class="insight" id="insightText">Insight will appear here.</p>
                 </div>
             </div>
@@ -157,17 +169,25 @@
                     const statusEl = document.getElementById('resultStatus');
                     const fillEl = document.getElementById('probabilityFill');
                     const insightEl = document.getElementById('insightText');
+                    const survivalStats = document.getElementById('survivalStats');
+
+                    // Display survival stats
+                    if (result.expected_remaining_months !== undefined) {
+                        survivalStats.classList.remove("hidden");
+                        document.getElementById('remainingMonthsText').innerText = result.expected_remaining_months + " Months";
+                        document.getElementById('ltvLossText').innerText = "$" + result.estimated_ltv_loss.toLocaleString();
+                    }
 
                     if (result.prediction === 1) {
                         statusEl.innerText = "⚠️ High Churn Risk";
                         statusEl.style.color = "#ff4b4b";
                         fillEl.style.background = "linear-gradient(90deg, #ff4b4b, #ff7676)";
-                        insightEl.innerText = "Action required! Send a 50% discount promotional email immediately to retain this customer.";
+                        insightEl.innerText = `Action required! Send a promotional offer immediately. Without intervention, we will lose $${result.estimated_ltv_loss.toLocaleString()} in LTV within the next ${result.expected_remaining_months} months.`;
                     } else {
                         statusEl.innerText = "✅ Loyal Customer";
                         statusEl.style.color = "#00e676";
                         fillEl.style.background = "linear-gradient(90deg, #00e676, #69f0ae)";
-                        insightEl.innerText = "This customer is stable. Continue providing excellent service.";
+                        insightEl.innerText = "This customer is highly stable and expected to remain subscribed. Continue providing excellent service.";
                     }
                     
                     btn.innerText = "Run AI Prediction";
