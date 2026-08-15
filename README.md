@@ -1,3 +1,5 @@
+⭐ If you find this repository helpful, please consider giving it a star!
+
 <div align="center">
 
 🌍 Read this in: [English](README.md) | [Bahasa Indonesia](README.id.md)
