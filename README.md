@@ -80,48 +80,48 @@ graph TD
       <td width="50%">
         <b>1. The Executive Dashboard (Idle State)</b><br><br>
         <i>Ganti area ini dengan <b>[SCREENSHOT 1]</b> (Tampilan penuh antarmuka awal)</i><br>
-        <img src="assets/YOUR_SCREENSHOT_1_IDLE.png" alt="Idle Dashboard Placeholder" width="100%">
+        <img src="assets/The%20Executive%20Dashboard.png" alt="Idle Dashboard Placeholder" width="100%">
       </td>
       <td width="50%">
         <b>2. High-Risk Churn Detection</b><br><br>
         <i>Ganti area ini dengan <b>[SCREENSHOT 2]</b> (Tampilan Radial Gauge merah & kerugian LTV)</i><br>
-        <img src="assets/YOUR_SCREENSHOT_2_HIGHRISK.png" alt="High Risk Detection Placeholder" width="100%">
+        <img src="assets/High-Risk%20Churn%20Detection.png" alt="High Risk Detection Placeholder" width="100%">
       </td>
     </tr>
     <tr>
       <td width="50%">
         <b>3. Safe / Loyal Customer Assessment</b><br><br>
         <i>Ganti area ini dengan <b>[SCREENSHOT 3]</b> (Tampilan UI probabilitas aman hijau)</i><br>
-        <img src="assets/YOUR_SCREENSHOT_3_LOYAL.png" alt="Loyal Profile Placeholder" width="100%">
+        <img src="assets/Loyal%20Customer%20Assessment.png" alt="Loyal Profile Placeholder" width="100%">
       </td>
       <td width="50%">
         <b>4. Explainable AI (SHAP Impact)</b><br><br>
         <i>Ganti area ini dengan <b>[SCREENSHOT 4]</b> (Close-up grafik ApexCharts Feature Importance)</i><br>
-        <img src="assets/YOUR_SCREENSHOT_4_SHAP.png" alt="SHAP Impact Placeholder" width="100%">
+        <img src="assets/Inference%20Driver%20Weights.png" alt="SHAP Impact Placeholder" width="100%">
       </td>
     </tr>
     <tr>
       <td width="50%">
         <b>5. Executive Retention Queue</b><br><br>
         <i>Ganti area ini dengan <b>[SCREENSHOT 5]</b> (Tabel antrean dan Toast Notification)</i><br>
-        <img src="assets/YOUR_SCREENSHOT_5_QUEUE.png" alt="Queue Notification Placeholder" width="100%">
+        <img src="assets/Executive%20Retention%20Queue.png" alt="Queue Notification Placeholder" width="100%">
       </td>
       <td width="50%">
         <b>6. REST API Documentation</b><br><br>
         <i>Ganti area ini dengan <b>[SCREENSHOT 6]</b> (Tampilan FastAPI Swagger Docs)</i><br>
-        <img src="assets/YOUR_SCREENSHOT_6_SWAGGER.png" alt="FastAPI Swagger Placeholder" width="100%">
+        <img src="assets/REST%20API%20Documentation.png" alt="FastAPI Swagger Placeholder" width="100%">
       </td>
     </tr>
     <tr>
       <td width="50%">
         <b>7. Real-Time Telemetry</b><br><br>
         <i>Ganti area ini dengan <b>[SCREENSHOT 7]</b> (Dashboard Grafana memonitor live traffic API)</i><br>
-        <img src="assets/YOUR_SCREENSHOT_7_GRAFANA.png" alt="Grafana Telemetry Placeholder" width="100%">
+        <img src="assets/Real-Time%20Telemetry%20Grafana.png" alt="Grafana Telemetry Placeholder" width="100%">
       </td>
       <td width="50%">
         <b>8. Experiment Tracking</b><br><br>
         <i>Ganti area ini dengan <b>[SCREENSHOT 8]</b> (Dashboard MLflow menampilkan log XGBoost)</i><br>
-        <img src="assets/YOUR_SCREENSHOT_8_MLFLOW.png" alt="MLflow Tracker Placeholder" width="100%">
+        <img src="assets/Experiment%20Tracking.png" alt="MLflow Tracker Placeholder" width="100%">
       </td>
     </tr>
   </table>
