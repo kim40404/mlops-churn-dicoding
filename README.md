@@ -173,7 +173,10 @@ Tunggu beberapa detik hingga seluruh kontainer menyala, lalu akses tautan beriku
 - 💎 **Web Dashboard (UI):** [http://localhost:8000](http://localhost:8000)
 - ⚙️ **FastAPI Swagger:** [http://localhost:8000/docs](http://localhost:8000/docs)
 - 📈 **Grafana Monitoring:** [http://localhost:3000](http://localhost:3000) (Login: `admin` / `admin`)
-- 📊 **Prometheus Scraper:** [http://localhost:9090](http://localhost:9090)
+- 🧪 **Experiment Tracking (MLflow):** 
+  - Windows: Ketik `$env:MLFLOW_ALLOW_FILE_STORE="true"; python -m mlflow ui` di terminal.
+  - Mac/Linux: Ketik `MLFLOW_ALLOW_FILE_STORE=true python -m mlflow ui` di terminal.
+  - Lalu buka [http://localhost:5000](http://localhost:5000)
 
 ---
 
