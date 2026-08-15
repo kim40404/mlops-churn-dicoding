@@ -73,55 +73,54 @@ graph TD
 
 ## ✨ Visual Showcase & Capabilities
 
-> **Catatan untuk Pemilik Repo:** Silakan letakkan gambar _screenshot_ Anda sendiri di dalam folder `assets/` dan ganti nama tautan HTML di bawah ini agar sesuai dengan gambar Anda.
 
 <div align="center">
   <table style="width:100%; text-align:center;">
     <tr>
       <td width="50%">
         <b>1. The Executive Dashboard (Idle State)</b><br><br>
-        <i>Ganti area ini dengan <b>[SCREENSHOT 1]</b> (Tampilan penuh antarmuka awal)</i><br>
+        <i>Antarmuka utama bergaya "Quiet Luxury" yang menanti input data profil pelanggan.</i><br>
         <img src="assets/The_Executive_Dashboard.png" alt="Idle Dashboard Placeholder" width="100%">
       </td>
       <td width="50%">
         <b>2. High-Risk Churn Detection</b><br><br>
-        <i>Ganti area ini dengan <b>[SCREENSHOT 2]</b> (Tampilan Radial Gauge merah & kerugian LTV)</i><br>
+        <i>Deteksi otomatis pelanggan berisiko tinggi beserta proyeksi kerugian pendapatan (LTV Loss).</i><br>
         <img src="assets/High-Risk Churn Detection.png" alt="High Risk Detection Placeholder" width="100%">
       </td>
     </tr>
     <tr>
       <td width="50%">
         <b>3. Safe / Loyal Customer Assessment</b><br><br>
-        <i>Ganti area ini dengan <b>[SCREENSHOT 3]</b> (Tampilan UI probabilitas aman hijau)</i><br>
+        <i>Evaluasi pelanggan dengan tingkat retensi tinggi yang diproyeksikan stabil.</i><br>
         <img src="assets/Loyal Customer Assessment.png" alt="Loyal Profile Placeholder" width="100%">
       </td>
       <td width="50%">
         <b>4. Explainable AI (SHAP Impact)</b><br><br>
-        <i>Ganti area ini dengan <b>[SCREENSHOT 4]</b> (Close-up grafik ApexCharts Feature Importance)</i><br>
+        <i>Grafik SHAP Impact yang memberikan transparansi alasan matematis di balik prediksi AI.</i><br>
         <img src="assets/Inference Driver Weights.png" alt="SHAP Impact Placeholder" width="100%">
       </td>
     </tr>
     <tr>
       <td width="50%">
         <b>5. Executive Retention Queue</b><br><br>
-        <i>Ganti area ini dengan <b>[SCREENSHOT 5]</b> (Tabel antrean dan Toast Notification)</i><br>
+        <i>Notifikasi interaktif saat eksekutif menekan tombol mitigasi pada antrean akun berisiko.</i><br>
         <img src="assets/Executive Retention Queue.png" alt="Queue Notification Placeholder" width="100%">
       </td>
       <td width="50%">
         <b>6. REST API Documentation</b><br><br>
-        <i>Ganti area ini dengan <b>[SCREENSHOT 6]</b> (Tampilan FastAPI Swagger Docs)</i><br>
+        <i>Dokumentasi API otomatis (Swagger) untuk melayani proses inferensi dengan latensi rendah.</i><br>
         <img src="assets/REST API Documentation.png" alt="FastAPI Swagger Placeholder" width="100%">
       </td>
     </tr>
     <tr>
       <td width="50%">
         <b>7. Real-Time Telemetry</b><br><br>
-        <i>Ganti area ini dengan <b>[SCREENSHOT 7]</b> (Dashboard Grafana memonitor live traffic API)</i><br>
+        <i>Dashboard Grafana yang memvisualisasikan metrik infrastruktur secara real-time.</i><br>
         <img src="assets/Real-Time Telemetry Grafana.png" alt="Grafana Telemetry Placeholder" width="100%">
       </td>
       <td width="50%">
         <b>8. Experiment Tracking</b><br><br>
-        <i>Ganti area ini dengan <b>[SCREENSHOT 8]</b> (Dashboard MLflow menampilkan log XGBoost)</i><br>
+        <i>Tracking metrik performa AI dan komparasi model XGBoost menggunakan antarmuka MLflow.</i><br>
         <img src="assets/Experiment Tracking.png" alt="MLflow Tracker Placeholder" width="100%">
       </td>
     </tr>
