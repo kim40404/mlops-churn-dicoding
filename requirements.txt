@@ -11,3 +11,5 @@ numpy
 pydantic
 dvc
 lifelines
+xgboost
+imbalanced-learn
