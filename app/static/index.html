@@ -1,73 +1,166 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Churn Predictor - Enterprise Edition</title>
-    <link rel="stylesheet" href="/static/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-</head>
-<body>
-    <div class="background-shapes">
-        <div class="shape shape-1"></div>
-        <div class="shape shape-2"></div>
-        <div class="shape shape-3"></div>
-    </div>
+    <title>Enterprise MLOps Analytics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        bgMain: '#0B0C10',
+                        cardBg: '#161B22',
+                        borderSubtle: 'rgba(255, 255, 255, 0.08)',
+                        textMain: '#E2E8F0',
+                        textMuted: '#8B949E',
+                        accentBtn: '#4F46E5',
+                        statusHigh: '#E05656',
+                        statusMed: '#D97706',
+                        statusLow: '#10B981',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0B0C10;
+            color: #E2E8F0;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #30363D; border-radius: 3px; }
+        
+        .card {
+            background-color: #161B22;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+        }
+        
+        /* Clean Input Styling */
+        input, select {
+            background-color: #0B0C10;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #E2E8F0;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        input:focus, select:focus {
+            border-color: #4F46E5;
+        }
+        select option {
+            background-color: #161B22;
+        }
 
-    <div class="container glass-panel">
-        <header>
-            <h1>AI Churn Predictor</h1>
-            <p>Telco Customer Retention System</p>
+        /* Toast Animation */
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        .toast-enter { animation: slideIn 0.3s ease-out forwards; }
+    </style>
+</head>
+<body class="font-sans antialiased min-h-screen p-6">
+
+    <div class="max-w-[1440px] mx-auto space-y-6">
+        
+        <!-- GLOBAL HEADER & EXECUTIVE ROW -->
+        <header class="flex flex-col md:flex-row md:items-start justify-between gap-6 mb-8">
+            <div class="space-y-1">
+                <div class="flex items-center gap-3">
+                    <h1 class="text-xl font-semibold tracking-tight text-white">Customer Retention System</h1>
+                    <span class="font-mono text-[10px] uppercase tracking-wider bg-[#1A1F26] text-textMuted px-2 py-0.5 rounded border border-borderSubtle">MLOps Pipeline v1.0.0</span>
+                </div>
+                <p class="text-sm text-textMuted">Predictive intelligence and risk mitigation dashboard.</p>
+            </div>
+
+            <!-- Top Metric Cards -->
+            <div class="flex gap-4">
+                <div class="card px-5 py-3 min-w-[200px]">
+                    <p class="font-mono text-xs text-textMuted uppercase tracking-wide mb-1">Total Portfolio Customers</p>
+                    <p class="text-2xl font-medium font-mono text-white">5,420</p>
+                </div>
+                <div class="card px-5 py-3 min-w-[200px]">
+                    <p class="font-mono text-xs text-textMuted uppercase tracking-wide mb-1">Avg Portfolio Churn</p>
+                    <div class="flex items-baseline gap-2">
+                        <p class="text-2xl font-medium font-mono text-white">24.5%</p>
+                        <span class="text-statusLow text-xs font-mono">↓ 1.2%</span>
+                    </div>
+                </div>
+                <div class="card px-5 py-3 min-w-[200px]">
+                    <p class="font-mono text-xs text-textMuted uppercase tracking-wide mb-1">MRR at Risk</p>
+                    <p class="text-2xl font-medium font-mono text-statusHigh">$142,500</p>
+                </div>
+            </div>
         </header>
 
-        <main>
-            <div class="form-section">
-                <div class="actions">
-                    <button class="btn btn-secondary" onclick="loadProfile('loyal')">Load Loyal Customer</button>
-                    <button class="btn btn-danger" onclick="loadProfile('risk')">Load High-Risk Customer</button>
+        <!-- 3-COLUMN BENTO GRID -->
+        <div class="flex flex-col lg:flex-row gap-6 items-stretch">
+            
+            <!-- COLUMN 1: SIMULATION CONTROL (30%) -->
+            <div class="card p-5 w-full lg:w-[30%] flex flex-col">
+                <div class="flex items-center justify-between mb-5">
+                    <h2 class="text-sm font-semibold uppercase tracking-wider text-textMuted font-mono">Simulation Control</h2>
+                </div>
+                
+                <div class="flex gap-2 mb-6">
+                    <button type="button" onclick="loadProfile('loyal')" class="flex-1 py-1.5 text-xs font-mono text-textMuted border border-borderSubtle rounded hover:text-white hover:border-textMuted transition-colors">[ Load Baseline ]</button>
+                    <button type="button" onclick="loadProfile('risk')" class="flex-1 py-1.5 text-xs font-mono text-statusHigh border border-statusHigh/30 bg-statusHigh/5 rounded hover:bg-statusHigh/10 transition-colors">[ Load High-Risk ]</button>
                 </div>
 
-                <form id="predictForm">
-                    <div class="input-grid">
-                        <div class="input-group">
-                            <label>Tenure (Months)</label>
-                            <input type="number" id="tenure" required>
+                <form id="predictForm" class="space-y-4 flex-1 flex flex-col">
+                    <div class="space-y-4 flex-1">
+                        <div>
+                            <label class="block font-mono text-[10px] uppercase tracking-wider text-textMuted mb-1.5">Tenure (Months)</label>
+                            <input type="number" id="tenure" required class="w-full px-3 py-2 text-sm rounded font-mono">
                         </div>
-                        <div class="input-group">
-                            <label>Monthly Charges ($)</label>
-                            <input type="number" step="0.01" id="MonthlyCharges" required>
+                        <div>
+                            <label class="block font-mono text-[10px] uppercase tracking-wider text-textMuted mb-1.5">Monthly Charges ($)</label>
+                            <input type="number" step="0.01" id="MonthlyCharges" required class="w-full px-3 py-2 text-sm rounded font-mono">
                         </div>
-                        <div class="input-group">
-                            <label>Total Charges ($)</label>
-                            <input type="number" step="0.01" id="TotalCharges" required>
+                        <div>
+                            <label class="block font-mono text-[10px] uppercase tracking-wider text-textMuted mb-1.5">Total Charges ($)</label>
+                            <input type="number" step="0.01" id="TotalCharges" required class="w-full px-3 py-2 text-sm rounded font-mono">
                         </div>
-                        <div class="input-group">
-                            <label>Contract Type</label>
-                            <select id="Contract">
+                        <div>
+                            <label class="block font-mono text-[10px] uppercase tracking-wider text-textMuted mb-1.5">Contract Type</label>
+                            <select id="Contract" class="w-full px-3 py-2 text-sm rounded">
                                 <option value="Month-to-month">Month-to-month</option>
                                 <option value="One year">One year</option>
                                 <option value="Two year">Two year</option>
                             </select>
                         </div>
-                        <div class="input-group">
-                            <label>Internet Service</label>
-                            <select id="InternetService">
+                        <div>
+                            <label class="block font-mono text-[10px] uppercase tracking-wider text-textMuted mb-1.5">Internet Service</label>
+                            <select id="InternetService" class="w-full px-3 py-2 text-sm rounded">
                                 <option value="Fiber optic">Fiber optic</option>
                                 <option value="DSL">DSL</option>
                                 <option value="No">No</option>
                             </select>
                         </div>
-                        <div class="input-group">
-                            <label>Tech Support</label>
-                            <select id="TechSupport">
+                        <div>
+                            <label class="block font-mono text-[10px] uppercase tracking-wider text-textMuted mb-1.5">Tech Support</label>
+                            <select id="TechSupport" class="w-full px-3 py-2 text-sm rounded">
                                 <option value="Yes">Yes</option>
                                 <option value="No">No</option>
-                                <option value="No internet service">No internet</option>
+                                <option value="No internet service">No internet service</option>
                             </select>
                         </div>
                     </div>
-                    
-                    <!-- Hidden fields for the API requirement -->
+
+                    <!-- Hidden fields required by API -->
                     <input type="hidden" id="gender" value="Male">
                     <input type="hidden" id="SeniorCitizen" value="0">
                     <input type="hidden" id="Partner" value="Yes">
@@ -82,37 +175,118 @@
                     <input type="hidden" id="PaperlessBilling" value="Yes">
                     <input type="hidden" id="PaymentMethod" value="Electronic check">
 
-                    <button type="submit" class="btn btn-primary btn-glow" id="predictBtn">Run AI Prediction</button>
+                    <button type="submit" id="predictBtn" class="w-full py-2.5 mt-4 bg-white text-black font-medium text-sm rounded hover:bg-gray-200 transition-colors flex items-center justify-center gap-2">
+                        Execute Inference Model
+                    </button>
                 </form>
             </div>
 
-            <div class="result-section" id="resultCard">
-                <div class="spinner" id="spinner"></div>
-                <div id="resultContent" class="hidden">
-                    <h2 id="resultStatus">Processing...</h2>
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="probabilityFill"></div>
+            <!-- COLUMN 2: PREDICTIVE INSIGHTS (45%) -->
+            <div class="w-full lg:w-[45%] flex flex-col gap-6">
+                <!-- Result Card -->
+                <div class="card p-6 flex flex-col justify-center min-h-[160px] relative overflow-hidden">
+                    <div id="processingState" class="absolute inset-0 bg-[#161B22] flex items-center justify-center z-10 hidden">
+                        <div class="font-mono text-sm text-textMuted flex items-center gap-3">
+                            <svg class="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                            computing forward pass...
+                        </div>
                     </div>
-                    <p class="probability-text">Churn Probability: <span id="probabilityText">0%</span></p>
                     
-                    <div class="survival-stats hidden" id="survivalStats">
-                        <div class="stat-box">
-                            <span class="stat-label">Expected Remaining Tenure</span>
-                            <span class="stat-value" id="remainingMonthsText">0 Months</span>
+                    <div id="resultContent" class="space-y-4 opacity-50 transition-opacity">
+                        <div class="flex justify-between items-end">
+                            <div>
+                                <p class="font-mono text-[10px] uppercase tracking-wider text-textMuted mb-1">Risk Assessment</p>
+                                <h3 id="assessmentText" class="text-lg font-medium">Awaiting Input</h3>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-mono text-[10px] uppercase tracking-wider text-textMuted mb-1">Probability</p>
+                                <p id="probText" class="font-mono text-3xl font-medium">--%</p>
+                            </div>
                         </div>
-                        <div class="stat-box warning">
-                            <span class="stat-label">Estimated Revenue Loss (LTV)</span>
-                            <span class="stat-value" id="ltvLossText">$0.00</span>
+                        <div class="h-1.5 w-full bg-[#0B0C10] rounded-full overflow-hidden">
+                            <div id="probBar" class="h-full w-0 bg-textMuted transition-all duration-700 ease-in-out"></div>
                         </div>
                     </div>
+                </div>
 
-                    <p class="insight" id="insightText">Insight will appear here.</p>
+                <!-- Impact Metrics -->
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="card p-4">
+                        <p class="font-mono text-[10px] uppercase tracking-wider text-textMuted mb-2">Expected Remaining Tenure</p>
+                        <p id="remainingTenure" class="font-mono text-xl">-- Months</p>
+                    </div>
+                    <div class="card p-4 border-statusHigh/20 bg-statusHigh/5">
+                        <p class="font-mono text-[10px] uppercase tracking-wider text-statusHigh mb-2">Estimated Revenue Loss (LTV)</p>
+                        <p id="ltvLoss" class="font-mono text-xl text-statusHigh">$0.00</p>
+                    </div>
+                </div>
+
+                <!-- Charts Container -->
+                <div class="card p-5 flex-1">
+                    <p class="font-mono text-[10px] uppercase tracking-wider text-textMuted mb-4">Inference Driver Weights (Feature Importance)</p>
+                    <div id="shapChart" class="w-full h-[160px]"></div>
                 </div>
             </div>
-        </main>
+
+            <!-- COLUMN 3: EXECUTIVE RETENTION WORKSPACE (25%) -->
+            <div class="card p-5 w-full lg:w-[25%] flex flex-col">
+                <div class="flex items-center justify-between mb-5">
+                    <h2 class="text-sm font-semibold uppercase tracking-wider text-textMuted font-mono">High-Risk Queue</h2>
+                    <span class="text-xs text-textMuted bg-[#0B0C10] px-2 py-0.5 rounded border border-borderSubtle">Live</span>
+                </div>
+
+                <div class="flex-1 overflow-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="border-b border-borderSubtle">
+                                <th class="pb-2 font-mono text-[10px] uppercase tracking-wider text-textMuted font-normal">Account ID</th>
+                                <th class="pb-2 font-mono text-[10px] uppercase tracking-wider text-textMuted font-normal">Risk</th>
+                                <th class="pb-2 font-mono text-[10px] uppercase tracking-wider text-textMuted font-normal text-right">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-sm font-mono">
+                            <tr class="border-b border-borderSubtle/50 hover:bg-[#1A1F26] transition-colors">
+                                <td class="py-3 text-textMain">ACC-8901</td>
+                                <td class="py-3"><span class="bg-statusHigh/10 text-statusHigh border border-statusHigh/20 px-1.5 py-0.5 rounded text-[10px]">94%</span></td>
+                                <td class="py-3 text-right"><button onclick="deployOffer('ACC-8901')" class="text-accentBtn hover:text-indigo-400 text-xs">Deploy Offer</button></td>
+                            </tr>
+                            <tr class="border-b border-borderSubtle/50 hover:bg-[#1A1F26] transition-colors">
+                                <td class="py-3 text-textMain">ACC-1023</td>
+                                <td class="py-3"><span class="bg-statusHigh/10 text-statusHigh border border-statusHigh/20 px-1.5 py-0.5 rounded text-[10px]">87%</span></td>
+                                <td class="py-3 text-right"><button onclick="deployOffer('ACC-1023')" class="text-accentBtn hover:text-indigo-400 text-xs">Deploy Offer</button></td>
+                            </tr>
+                            <tr class="border-b border-borderSubtle/50 hover:bg-[#1A1F26] transition-colors">
+                                <td class="py-3 text-textMain">ACC-4412</td>
+                                <td class="py-3"><span class="bg-statusMed/10 text-statusMed border border-statusMed/20 px-1.5 py-0.5 rounded text-[10px]">68%</span></td>
+                                <td class="py-3 text-right"><button onclick="deployOffer('ACC-4412')" class="text-accentBtn hover:text-indigo-400 text-xs">Deploy Offer</button></td>
+                            </tr>
+                            <tr class="border-b border-borderSubtle/50 hover:bg-[#1A1F26] transition-colors">
+                                <td class="py-3 text-textMain">ACC-9921</td>
+                                <td class="py-3"><span class="bg-statusMed/10 text-statusMed border border-statusMed/20 px-1.5 py-0.5 rounded text-[10px]">55%</span></td>
+                                <td class="py-3 text-right"><button onclick="deployOffer('ACC-9921')" class="text-accentBtn hover:text-indigo-400 text-xs">Deploy Offer</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- MLOPS INFRASTRUCTURE LOGS (WIREFRAME) -->
+        <div class="card p-5 w-full border-dashed border-borderSubtle bg-transparent">
+            <h2 class="text-sm font-semibold uppercase tracking-wider text-textMuted font-mono mb-3">MLOps Infrastructure Logs & Telemetry</h2>
+            <div class="h-24 flex items-center justify-center bg-[#0B0C10] border border-borderSubtle rounded">
+                <p class="font-mono text-xs text-textMuted">[ Grafana Telemetry Iframe Mount Point ]</p>
+            </div>
+        </div>
+
     </div>
 
+    <!-- Toast Container -->
+    <div id="toastContainer" class="fixed top-6 right-6 z-50 flex flex-col gap-2"></div>
+
     <script>
+        // Preset Profiles
         const profiles = {
             loyal: { tenure: 72, MonthlyCharges: 24.50, TotalCharges: 1750.00, Contract: "Two year", InternetService: "No", TechSupport: "No internet service" },
             risk: { tenure: 1, MonthlyCharges: 95.00, TotalCharges: 95.00, Contract: "Month-to-month", InternetService: "Fiber optic", TechSupport: "No" }
@@ -123,29 +297,47 @@
             for (let key in data) {
                 document.getElementById(key).value = data[key];
             }
-            document.getElementById("resultContent").classList.add("hidden");
         }
 
-        // Load default on startup
+        // Load Baseline by default
         loadProfile('loyal');
 
+        // Init ApexChart
+        var chartOptions = {
+            series: [{ name: 'Weight', data: [0, 0, 0, 0] }],
+            chart: { type: 'bar', height: 160, parentHeightOffset: 0, toolbar: { show: false }, background: 'transparent' },
+            plotOptions: { bar: { horizontal: true, barHeight: '40%', borderRadius: 2 } },
+            dataLabels: { enabled: false },
+            xaxis: { categories: ['Contract Type', 'Tenure', 'Tech Support', 'Internet Service'],
+                     labels: { style: { colors: '#8B949E', fontFamily: 'JetBrains Mono, monospace', fontSize: '10px' } },
+                     axisBorder: { show: false }, axisTicks: { show: false } },
+            yaxis: { labels: { style: { colors: '#8B949E', fontFamily: 'JetBrains Mono, monospace', fontSize: '10px' } } },
+            grid: { borderColor: 'rgba(255,255,255,0.05)', strokeDashArray: 3, xaxis: { lines: { show: true } }, yaxis: { lines: { show: false } } },
+            colors: ['#4F46E5'],
+            tooltip: { theme: 'dark', style: { fontFamily: 'JetBrains Mono' } }
+        };
+        var shapChart = new ApexCharts(document.querySelector("#shapChart"), chartOptions);
+        shapChart.render();
+
+        // Form Submit
         document.getElementById('predictForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             
             const btn = document.getElementById('predictBtn');
-            const spinner = document.getElementById('spinner');
+            const processingState = document.getElementById('processingState');
             const resultContent = document.getElementById('resultContent');
             
-            btn.innerText = "Analyzing...";
+            btn.innerHTML = `<svg class="animate-spin h-4 w-4 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Executing...`;
             btn.disabled = true;
-            resultContent.classList.add("hidden");
-            spinner.style.display = "block";
+            resultContent.classList.add('opacity-10');
+            processingState.classList.remove('hidden');
 
-            // Gather all inputs
             const payload = {};
             document.querySelectorAll('input, select').forEach(el => {
-                if(el.id) {
+                if(el.id && el.type !== 'hidden') {
                     payload[el.id] = el.type === 'number' ? Number(el.value) : el.value;
+                } else if(el.id && el.type === 'hidden') {
+                    payload[el.id] = el.value;
                 }
             });
 
@@ -158,49 +350,77 @@
                 
                 const result = await response.json();
                 
+                // Simulate network latency for UI feel
                 setTimeout(() => {
-                    spinner.style.display = "none";
-                    resultContent.classList.remove("hidden");
+                    processingState.classList.add('hidden');
+                    resultContent.classList.remove('opacity-10');
+                    resultContent.classList.add('opacity-100');
                     
-                    const prob = Math.round(result.probability_churn * 100);
-                    document.getElementById('probabilityText').innerText = prob + "%";
-                    document.getElementById('probabilityFill').style.width = prob + "%";
+                    const prob = (result.probability_churn * 100).toFixed(1);
+                    document.getElementById('probText').innerText = prob + "%";
                     
-                    const statusEl = document.getElementById('resultStatus');
-                    const fillEl = document.getElementById('probabilityFill');
-                    const insightEl = document.getElementById('insightText');
-                    const survivalStats = document.getElementById('survivalStats');
-
-                    // Display survival stats
-                    if (result.expected_remaining_months !== undefined) {
-                        survivalStats.classList.remove("hidden");
-                        document.getElementById('remainingMonthsText').innerText = result.expected_remaining_months + " Months";
-                        document.getElementById('ltvLossText').innerText = "$" + result.estimated_ltv_loss.toLocaleString();
-                    }
+                    const assessmentEl = document.getElementById('assessmentText');
+                    const probTextEl = document.getElementById('probText');
+                    const probBarEl = document.getElementById('probBar');
 
                     if (result.prediction === 1) {
-                        statusEl.innerText = "⚠️ High Churn Risk";
-                        statusEl.style.color = "#ff4b4b";
-                        fillEl.style.background = "linear-gradient(90deg, #ff4b4b, #ff7676)";
-                        insightEl.innerText = `Action required! Send a promotional offer immediately. Without intervention, we will lose $${result.estimated_ltv_loss.toLocaleString()} in LTV within the next ${result.expected_remaining_months} months.`;
+                        assessmentEl.innerText = "High Churn Probability";
+                        assessmentEl.className = "text-lg font-medium text-statusHigh";
+                        probTextEl.className = "font-mono text-3xl font-medium text-statusHigh";
+                        probBarEl.style.width = prob + "%";
+                        probBarEl.style.backgroundColor = "#E05656";
+                        
+                        // Update Chart
+                        shapChart.updateSeries([{ data: [45, 30, 15, 10] }]);
+                        shapChart.updateOptions({ colors: ['#E05656'] });
+
                     } else {
-                        statusEl.innerText = "✅ Loyal Customer";
-                        statusEl.style.color = "#00e676";
-                        fillEl.style.background = "linear-gradient(90deg, #00e676, #69f0ae)";
-                        insightEl.innerText = "This customer is highly stable and expected to remain subscribed. Continue providing excellent service.";
+                        assessmentEl.innerText = "Low Risk / Safe";
+                        assessmentEl.className = "text-lg font-medium text-statusLow";
+                        probTextEl.className = "font-mono text-3xl font-medium text-statusLow";
+                        probBarEl.style.width = prob + "%";
+                        probBarEl.style.backgroundColor = "#10B981";
+
+                        // Update Chart
+                        shapChart.updateSeries([{ data: [-20, -35, -10, -5] }]);
+                        shapChart.updateOptions({ colors: ['#10B981'] });
+                    }
+
+                    if (result.expected_remaining_months !== undefined) {
+                        document.getElementById('remainingTenure').innerText = result.expected_remaining_months + " Months";
+                        document.getElementById('ltvLoss').innerText = "$" + result.estimated_ltv_loss.toLocaleString(undefined, {minimumFractionDigits: 2});
                     }
                     
-                    btn.innerText = "Run AI Prediction";
+                    btn.innerText = "Execute Inference Model";
                     btn.disabled = false;
-                }, 800); // Fake delay for dramatic AI effect
+                }, 600);
 
             } catch (error) {
-                alert("Error connecting to AI Engine");
-                btn.innerText = "Run AI Prediction";
+                alert("Inference engine offline.");
+                btn.innerText = "Execute Inference Model";
                 btn.disabled = false;
-                spinner.style.display = "none";
+                processingState.classList.add('hidden');
+                resultContent.classList.remove('opacity-10');
             }
         });
+
+        // Toast Notification
+        function deployOffer(accountId) {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = 'bg-[#161B22] border border-borderSubtle text-white px-4 py-3 rounded shadow-lg flex items-center gap-3 toast-enter font-mono text-xs';
+            toast.innerHTML = `
+                <svg class="w-4 h-4 text-statusLow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                Offer deployed to ${accountId}
+            `;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateX(100%)';
+                toast.style.transition = 'all 0.3s ease-in';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
     </script>
 </body>
 </html>
