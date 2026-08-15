@@ -79,51 +79,51 @@ graph TD
 <div align="center">
   <table style="width:100%; text-align:center;">
     <tr>
-      <td width="50%">
+      <td width="50%" valign="top">
         <b>1. The Executive Dashboard (Idle State)</b><br><br>
         <i>A "Quiet Luxury" style main interface awaiting customer profile data input.</i><br>
-        <img src="assets/The_Executive_Dashboard.png" alt="Idle Dashboard" style="max-width: 100%; height: auto;">
+        <img src="assets/The_Executive_Dashboard.png" alt="Idle Dashboard" width="100%">
       </td>
-      <td width="50%">
+      <td width="50%" valign="top">
         <b>2. High-Risk Churn Detection</b><br><br>
         <i>Automated high-risk customer detection with projected revenue loss (LTV Loss).</i><br>
-        <img src="assets/High-Risk%20Churn%20Detection.png" alt="High Risk Detection" style="max-width: 100%; height: auto;">
+        <img src="assets/High-Risk%20Churn%20Detection.png" alt="High Risk Detection" width="100%">
       </td>
     </tr>
     <tr>
-      <td width="50%">
+      <td width="50%" valign="top">
         <b>3. Safe / Loyal Customer Assessment</b><br><br>
         <i>Evaluation of a customer with a high projected retention rate.</i><br>
-        <img src="assets/Loyal%20Customer%20Assessment.png" alt="Loyal Profile" style="max-width: 100%; height: auto;">
+        <img src="assets/Loyal%20Customer%20Assessment.png" alt="Loyal Profile" width="100%">
       </td>
-      <td width="50%">
+      <td width="50%" valign="top">
         <b>4. Explainable AI (SHAP Impact)</b><br><br>
         <i>SHAP Impact charts providing mathematical transparency behind every AI prediction.</i><br>
-        <img src="assets/Inference%20Driver%20Weights.png" alt="SHAP Impact" style="max-width: 100%; height: auto;">
+        <img src="assets/Inference%20Driver%20Weights.png" alt="SHAP Impact" width="100%">
       </td>
     </tr>
     <tr>
-      <td width="50%">
+      <td width="50%" valign="top">
         <b>5. Executive Retention Queue</b><br><br>
         <i>Interactive Toast Notification triggered when an executive deploys a mitigation action.</i><br>
-        <img src="assets/Executive%20Retention%20Queue.png" alt="Queue Notification" style="max-width: 100%; height: auto;">
+        <img src="assets/Executive%20Retention%20Queue.png" alt="Queue Notification" width="100%">
       </td>
-      <td width="50%">
+      <td width="50%" valign="top">
         <b>6. REST API Documentation</b><br><br>
         <i>Automated interactive API Documentation (Swagger) for low-latency inference serving.</i><br>
-        <img src="assets/REST%20API%20Documentation.png" alt="FastAPI Swagger" style="max-width: 100%; height: auto;">
+        <img src="assets/REST%20API%20Documentation.png" alt="FastAPI Swagger" width="100%">
       </td>
     </tr>
     <tr>
-      <td width="50%">
+      <td width="50%" valign="top">
         <b>7. Real-Time Telemetry</b><br><br>
         <i>Grafana Dashboard visualizing Prometheus infrastructure metrics in real-time.</i><br>
-        <img src="assets/Real-Time%20Telemetry%20Grafana.png" alt="Grafana Telemetry" style="max-width: 100%; height: auto;">
+        <img src="assets/Real-Time%20Telemetry%20Grafana.png" alt="Grafana Telemetry" width="100%">
       </td>
-      <td width="50%">
+      <td width="50%" valign="top">
         <b>8. Experiment Tracking</b><br><br>
         <i>Automated AI performance tracking and XGBoost model comparison using MLflow UI.</i><br>
-        <img src="assets/Experiment%20Tracking.png" alt="MLflow Tracker" style="max-width: 100%; height: auto;">
+        <img src="assets/Experiment%20Tracking.png" alt="MLflow Tracker" width="100%">
       </td>
     </tr>
   </table>
