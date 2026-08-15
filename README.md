@@ -16,6 +16,7 @@
 ---
 
 ## 📑 Table of Contents
+
 - [Executive Summary](#-executive-summary)
 - [System Architecture Flow](#-system-architecture-flow)
 - [Visual Showcase & Capabilities](#-visual-showcase--capabilities)
@@ -27,7 +28,7 @@
 
 ## 💼 Executive Summary
 
-Customer churn costs the telecommunications industry billions of dollars annually. This project is engineered as a **Production-Ready Enterprise Solution** aimed directly at *Revenue Protection* and *Risk Mitigation*. 
+Customer churn costs the telecommunications industry billions of dollars annually. This project is engineered as a **Production-Ready Enterprise Solution** aimed directly at _Revenue Protection_ and _Risk Mitigation_.
 
 By integrating a finely tuned **XGBoost Algorithm** with **SMOTE (Synthetic Minority Over-sampling Technique)**, this AI engine dynamically calculates Churn Probability and predicts **Estimated Revenue Loss (LTV)** in real-time. The infrastructure is entirely containerized (Docker) and monitored using industry-standard telemetry (Prometheus & Grafana), making it a highly robust, scalable, and investor-ready SaaS prototype.
 
@@ -35,7 +36,7 @@ By integrating a finely tuned **XGBoost Algorithm** with **SMOTE (Synthetic Mino
 
 ## 🏗️ System Architecture Flow
 
-The pipeline is highly decoupled, ensuring that Data Science experimentation is separate from API serving and Telemetry. 
+The pipeline is highly decoupled, ensuring that Data Science experimentation is separate from API serving and Telemetry.
 
 ```mermaid
 graph TD
@@ -72,7 +73,7 @@ graph TD
 
 ## ✨ Visual Showcase & Capabilities
 
-> **Catatan untuk Pemilik Repo:** Silakan letakkan gambar *screenshot* Anda sendiri di dalam folder `assets/` dan ganti nama tautan HTML di bawah ini agar sesuai dengan gambar Anda.
+> **Catatan untuk Pemilik Repo:** Silakan letakkan gambar _screenshot_ Anda sendiri di dalam folder `assets/` dan ganti nama tautan HTML di bawah ini agar sesuai dengan gambar Anda.
 
 <div align="center">
   <table style="width:100%; text-align:center;">
@@ -80,48 +81,48 @@ graph TD
       <td width="50%">
         <b>1. The Executive Dashboard (Idle State)</b><br><br>
         <i>Ganti area ini dengan <b>[SCREENSHOT 1]</b> (Tampilan penuh antarmuka awal)</i><br>
-        <img src="assets/The%20Executive%20Dashboard.png" alt="Idle Dashboard Placeholder" width="100%">
+        <img src="assets/The_Executive_Dashboard.png" alt="Idle Dashboard Placeholder" width="100%">
       </td>
       <td width="50%">
         <b>2. High-Risk Churn Detection</b><br><br>
         <i>Ganti area ini dengan <b>[SCREENSHOT 2]</b> (Tampilan Radial Gauge merah & kerugian LTV)</i><br>
-        <img src="assets/High-Risk%20Churn%20Detection.png" alt="High Risk Detection Placeholder" width="100%">
+        <img src="assets/High-Risk Churn Detection.png" alt="High Risk Detection Placeholder" width="100%">
       </td>
     </tr>
     <tr>
       <td width="50%">
         <b>3. Safe / Loyal Customer Assessment</b><br><br>
         <i>Ganti area ini dengan <b>[SCREENSHOT 3]</b> (Tampilan UI probabilitas aman hijau)</i><br>
-        <img src="assets/Loyal%20Customer%20Assessment.png" alt="Loyal Profile Placeholder" width="100%">
+        <img src="assets/Loyal Customer Assessment.png" alt="Loyal Profile Placeholder" width="100%">
       </td>
       <td width="50%">
         <b>4. Explainable AI (SHAP Impact)</b><br><br>
         <i>Ganti area ini dengan <b>[SCREENSHOT 4]</b> (Close-up grafik ApexCharts Feature Importance)</i><br>
-        <img src="assets/Inference%20Driver%20Weights.png" alt="SHAP Impact Placeholder" width="100%">
+        <img src="assets/Inference Driver Weights.png" alt="SHAP Impact Placeholder" width="100%">
       </td>
     </tr>
     <tr>
       <td width="50%">
         <b>5. Executive Retention Queue</b><br><br>
         <i>Ganti area ini dengan <b>[SCREENSHOT 5]</b> (Tabel antrean dan Toast Notification)</i><br>
-        <img src="assets/Executive%20Retention%20Queue.png" alt="Queue Notification Placeholder" width="100%">
+        <img src="assets/Executive Retention Queue.png" alt="Queue Notification Placeholder" width="100%">
       </td>
       <td width="50%">
         <b>6. REST API Documentation</b><br><br>
         <i>Ganti area ini dengan <b>[SCREENSHOT 6]</b> (Tampilan FastAPI Swagger Docs)</i><br>
-        <img src="assets/REST%20API%20Documentation.png" alt="FastAPI Swagger Placeholder" width="100%">
+        <img src="assets/REST API Documentation.png" alt="FastAPI Swagger Placeholder" width="100%">
       </td>
     </tr>
     <tr>
       <td width="50%">
         <b>7. Real-Time Telemetry</b><br><br>
         <i>Ganti area ini dengan <b>[SCREENSHOT 7]</b> (Dashboard Grafana memonitor live traffic API)</i><br>
-        <img src="assets/Real-Time%20Telemetry%20Grafana.png" alt="Grafana Telemetry Placeholder" width="100%">
+        <img src="assets/Real-Time Telemetry Grafana.png" alt="Grafana Telemetry Placeholder" width="100%">
       </td>
       <td width="50%">
         <b>8. Experiment Tracking</b><br><br>
         <i>Ganti area ini dengan <b>[SCREENSHOT 8]</b> (Dashboard MLflow menampilkan log XGBoost)</i><br>
-        <img src="assets/Experiment%20Tracking.png" alt="MLflow Tracker Placeholder" width="100%">
+        <img src="assets/Experiment Tracking.png" alt="MLflow Tracker Placeholder" width="100%">
       </td>
     </tr>
   </table>
@@ -131,16 +132,16 @@ graph TD
 
 ## ⚙️ MLOps Workflow Step-by-Step
 
-Proyek ini tidak hanya melakukan prediksi, tetapi mematuhi siklus hidup *Machine Learning* yang matang.
+Proyek ini tidak hanya melakukan prediksi, tetapi mematuhi siklus hidup _Machine Learning_ yang matang.
 
-| Tahap | Proses yang Berjalan | Teknologi |
-| :--- | :--- | :--- |
-| **1. Data Preprocessing** | Pembersihan data, pemetaan kamus `O(1)` untuk latensi rendah, *One-Hot Encoding*. | `pandas`, `scikit-learn` |
-| **2. Resampling & Balancing** | Menggunakan teknik SMOTE agar AI lebih sensitif dalam mendeteksi ancaman *Churn* di kelas minoritas. | `imbalanced-learn` |
-| **3. Model Training** | Pelatihan **XGBoost Classifier** dan **CoxPHFitter** (Survival Analysis untuk sisa *Tenure*). | `xgboost`, `lifelines` |
-| **4. Experiment Tracking** | MLflow secara otomatis merekam *Hyperparameters*, akurasi, f1-score, dan model *artifacts* (`.pkl`). | `mlflow` |
-| **5. Continuous Integration** | Kode melewati proses otomatis *Linting* (Flake8) dan *Testing* (Pytest) via GitHub Actions setiap ada *Commit*. | `GitHub Actions` |
-| **6. Containerized Deployment** | *Backend* FastAPI menyajikan model dan UI secara bersamaan di dalam kontainer yang saling terhubung. | `Docker`, `Docker Compose` |
+| Tahap                           | Proses yang Berjalan                                                                                            | Teknologi                  |
+| :------------------------------ | :-------------------------------------------------------------------------------------------------------------- | :------------------------- |
+| **1. Data Preprocessing**       | Pembersihan data, pemetaan kamus `O(1)` untuk latensi rendah, _One-Hot Encoding_.                               | `pandas`, `scikit-learn`   |
+| **2. Resampling & Balancing**   | Menggunakan teknik SMOTE agar AI lebih sensitif dalam mendeteksi ancaman _Churn_ di kelas minoritas.            | `imbalanced-learn`         |
+| **3. Model Training**           | Pelatihan **XGBoost Classifier** dan **CoxPHFitter** (Survival Analysis untuk sisa _Tenure_).                   | `xgboost`, `lifelines`     |
+| **4. Experiment Tracking**      | MLflow secara otomatis merekam _Hyperparameters_, akurasi, f1-score, dan model _artifacts_ (`.pkl`).            | `mlflow`                   |
+| **5. Continuous Integration**   | Kode melewati proses otomatis _Linting_ (Flake8) dan _Testing_ (Pytest) via GitHub Actions setiap ada _Commit_. | `GitHub Actions`           |
+| **6. Containerized Deployment** | _Backend_ FastAPI menyajikan model dan UI secara bersamaan di dalam kontainer yang saling terhubung.            | `Docker`, `Docker Compose` |
 
 ---
 
@@ -149,11 +150,14 @@ Proyek ini tidak hanya melakukan prediksi, tetapi mematuhi siklus hidup *Machine
 Mendeploy seluruh arsitektur ini (Model, API, UI, dan Telemetri) di mesin lokal Anda sangatlah mudah.
 
 ### Prasyarat
+
 - [Python 3.10+](https://www.python.org/downloads/)
 - [Docker & Docker Compose](https://www.docker.com/products/docker-desktop/)
 
 ### Langkah 1: Inisialisasi Environment & Training
+
 Pertama, kita siapkan pustaka lokal dan latih algoritma XGBoost untuk menghasilkan file `.pkl`.
+
 ```bash
 # Install seluruh dependensi
 pip install -r requirements.txt
@@ -163,20 +167,21 @@ python src/train.py
 ```
 
 ### Langkah 2: Menjalankan Enterprise Stack (Docker)
+
 Setelah model dilatih, bangun seluruh arsitektur layanan menggunakan Docker.
+
 ```bash
 docker-compose up --build -d
 ```
 
 ### Langkah 3: Akses Platform
-Tunggu beberapa detik hingga seluruh kontainer menyala, lalu akses tautan berikut di *browser* Anda:
+
+Tunggu beberapa detik hingga seluruh kontainer menyala, lalu akses tautan berikut di _browser_ Anda:
+
 - 💎 **Web Dashboard (UI):** [http://localhost:8000](http://localhost:8000)
 - ⚙️ **FastAPI Swagger:** [http://localhost:8000/docs](http://localhost:8000/docs)
 - 📈 **Grafana Monitoring:** [http://localhost:3000](http://localhost:3000) (Login: `admin` / `admin`)
-- 🧪 **Experiment Tracking (MLflow):** 
-  - Windows: Ketik `$env:MLFLOW_ALLOW_FILE_STORE="true"; python -m mlflow ui` di terminal.
-  - Mac/Linux: Ketik `MLFLOW_ALLOW_FILE_STORE=true python -m mlflow ui` di terminal.
-  - Lalu buka [http://localhost:5000](http://localhost:5000)
+- 📊 **Prometheus Scraper:** [http://localhost:9090](http://localhost:9090)
 
 ---
 
@@ -188,7 +193,7 @@ mlops-churn-dicoding/
 ├── app/
 │   ├── main.py              # FastAPI server (Inference & Static File Serving)
 │   ├── models_schemas.py    # Skema validasi input Pydantic
-│   └── static/              
+│   └── static/
 │       └── index.html       # "Quiet Luxury" UI Enterprise Dashboard
 ├── data/                    # Folder dataset (CSV)
 ├── models/                  # File hasil training (.pkl artifacts)
