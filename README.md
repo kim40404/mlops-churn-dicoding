@@ -1,68 +1,109 @@
-# MLOps Churn Prediction Project (Dicoding)
+<div align="center">
+  
+# 🚀 Enterprise MLOps: Customer Retention & LTV Prediction
+*A scalable, end-to-end Machine Learning Operations pipeline with a Quiet Luxury Web Dashboard.*
 
-## 📌 Overview
-An end-to-end Machine Learning Operations (MLOps) pipeline for predicting Telecommunications Customer Churn. Built as a submission for the Dicoding "Membangun Sistem Machine Learning" course.
+[![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue?style=for-the-badge&logo=python)](https://www.python.org/)
+[![XGBoost](https://img.shields.io/badge/XGBoost-1.7.5-FF9900?style=for-the-badge&logo=xgboost)](https://xgboost.ai/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.100%2B-009688?style=for-the-badge&logo=fastapi)](https://fastapi.tiangolo.com/)
+[![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED?style=for-the-badge&logo=docker)](https://www.docker.com/)
+[![MLflow](https://img.shields.io/badge/MLflow-Tracking-0194E2?style=for-the-badge&logo=mlflow)](https://mlflow.org/)
+[![Grafana](https://img.shields.io/badge/Grafana-Monitoring-F46800?style=for-the-badge&logo=grafana)](https://grafana.com/)
 
-## 💼 Business Value (Why this matters to HR & Investors)
-- **Revenue Protection:** Customer churn costs telecommunication companies millions annually. This AI model predicts *which* customers are likely to cancel their subscriptions, allowing businesses to offer targeted promotions and retain them.
-- **Production-Ready Engineering:** Unlike typical Data Science projects that end in a Jupyter Notebook, this project demonstrates **industry-level deployment**. The model is wrapped in a scalable REST API (FastAPI), containerized (Docker), and monitored in real-time (Prometheus/Grafana). This proves the ability to deliver tangible business tools, not just theoretical models.
-
-## 🛠️ Technology Stack
-- **Language**: Python 3.10+
-- **Model**: Scikit-learn (Random Forest Classifier)
-- **Experiment Tracking**: MLflow (autolog)
-- **Model Serving**: FastAPI
-- **Frontend**: Custom Glassmorphism UI (HTML/CSS/JS) served via FastAPI
-- **Containerization**: Docker & Docker Compose
-- **Monitoring**: Prometheus & Grafana
-- **Data Versioning**: DVC
-- **CI/CD**: GitHub Actions
+</div>
 
 ---
 
-## 🚀 How to Run the Project Locally
+## 💼 Executive Summary
 
-Follow these step-by-step instructions to run the complete MLOps pipeline on your local machine.
+Customer churn costs the telecommunications industry billions annually. This project is not just a theoretical data science model—it is a **Production-Ready Enterprise Dashboard** designed to directly address *Revenue Protection*. 
 
-### 1. Setup Environment
-First, install the required Python dependencies:
+By integrating a finely tuned **XGBoost Algorithm** with **SMOTE (Synthetic Minority Over-sampling Technique)**, this AI engine dynamically calculates Churn Probability and predicts **Estimated Revenue Loss (LTV)** in real-time. The infrastructure is entirely containerized and monitored using industry-standard telemetry (Prometheus & Grafana), making it a highly robust, scalable, and investor-ready SaaS prototype.
+
+---
+
+## ✨ Visual Showcase: The "Quiet Luxury" Dashboard
+
+Our user interface abandons generic templates in favor of a **High-Density Bento Grid System** inspired by leading SaaS platforms like *Stripe, Linear,* and *Vercel*.
+
+<table>
+  <tr>
+    <td width="50%">
+      <h3 align="center">📊 The Executive Dashboard (Idle State)</h3>
+      <p align="center">
+        <img src="assets/ui-idle.png" alt="Idle Dashboard" width="100%">
+      </p>
+      <p align="center"><i>Clean micro-typography, muted status colors, and a fully reactive UI powered by FastAPI serving static HTML.</i></p>
+    </td>
+    <td width="50%">
+      <h3 align="center">🚨 High-Risk Churn Detection</h3>
+      <p align="center">
+        <img src="assets/ui-highrisk.png" alt="High Risk Detection" width="100%">
+      </p>
+      <p align="center"><i>Interactive SHAP feature-importance charts (ApexCharts) explaining exactly <b>why</b> a customer is leaving.</i></p>
+    </td>
+  </tr>
+</table>
+
+---
+
+## 🏗️ System Architecture & Data Flow
+
+Our architecture follows a clean, highly decoupled MLOps philosophy:
+
+🔹 **1. Data Engineering & Balancing** 
+> Raw Telco Data ➔ `imbalanced-learn` (SMOTE) ➔ Balanced Training Set 
+
+🔹 **2. Model Training & Tracking** 
+> `XGBClassifier` + `GridSearchCV` ➔ `mlflow.autolog()` ➔ Best Model Registry (`model.pkl`)
+
+🔹 **3. High-Performance Serving**
+> `FastAPI` REST Endpoint ➔ Loads `XGBoost` & `CoxPHFitter` (Survival/LTV) ➔ Serves Inference
+
+🔹 **4. Telemetry & Monitoring**
+> FastAPI `prometheus-client` ➔ `Prometheus` Scraper ➔ `Grafana` Live Dashboard
+
+---
+
+## 🚀 Quick Start (Local Deployment)
+
+Deploying the entire infrastructure (API, ML Model, UI, and Monitoring) only takes a few steps.
+
+### 1. Initialize the AI Engine
+Ensure you have the dependencies installed, then run the training pipeline to generate the XGBoost and Survival models.
 ```bash
 pip install -r requirements.txt
-```
-Make sure you have the dataset placed at `data/telco_churn.csv`.
-
-### 2. Train the Model (Experiment Tracking)
-Run the training script. This script will preprocess the data, train a Random Forest model, and log all metrics (Accuracy, F1, etc.) into MLflow.
-```bash
 python src/train.py
 ```
-*(This will automatically generate the model artifacts in the `models/` directory)*
+*(All experiments, parameters, and metrics are automatically tracked via MLflow)*
 
-### 3. View MLflow UI (Metrics & Parameters)
-To view the recorded experiments, open the MLflow UI. 
-**Note for Windows users:** You must set the environment variable first to allow local file tracking.
-Run this in your PowerShell terminal:
-```powershell
-$env:MLFLOW_ALLOW_FILE_STORE="true"
-python -m mlflow ui
-```
-Then open your browser to: [http://localhost:5000](http://localhost:5000)
-
-### 4. Serve API and Start Monitoring (Docker)
-Ensure Docker Desktop is running on your machine. We will spin up the FastAPI server, Prometheus, and Grafana simultaneously.
+### 2. Launch the Enterprise Stack
+Ensure Docker is running. The following command spins up the backend, the user interface, Prometheus, and Grafana simultaneously.
 ```bash
 docker-compose up --build -d
 ```
 
-### 5. Generate Traffic (Inference)
-To see the monitoring graphs move, generate some dummy traffic by hitting the API. You can run the provided inference script:
-```bash
-python "SUBMISSION-MSML\Monitor dan Logging\7.inference.py"
-```
+### 3. Access the Platforms
+- 💎 **Executive UI (Dashboard):** [http://localhost:8000](http://localhost:8000)
+- ⚙️ **API Documentation (Swagger):** [http://localhost:8000/docs](http://localhost:8000/docs)
+- 📈 **Grafana Telemetry:** [http://localhost:3000](http://localhost:3000) *(User/Pass: admin)*
+- 🧪 **MLflow Tracking:** Run `python -m mlflow ui` and visit [http://localhost:5000](http://localhost:5000)
 
-### 6. Access the Dashboards
-Once Docker is running, you can access the following services in your browser:
-- **API Swagger Docs:** [http://localhost:8000/docs](http://localhost:8000/docs)
-- **Web UI (Investor Demo):** [http://localhost:8000](http://localhost:8000)
-- **Grafana Dashboard:** [http://localhost:3000](http://localhost:3000) (Login: `admin` / `admin`), password: `admin`)*
-- **Prometheus (Metrics Scraper)**: [http://localhost:9090](http://localhost:9090)
+---
+
+## 🛠️ Technology Stack Breakdown
+
+| Layer | Technology | Purpose |
+| :--- | :--- | :--- |
+| **Frontend UI** | HTML5, TailwindCSS, ApexCharts | "Quiet Luxury" Dashboard and dynamic graphing |
+| **Backend API** | FastAPI, Uvicorn | High-speed REST API for model inference |
+| **Machine Learning**| XGBoost, Scikit-learn, Lifelines | Extreme Gradient Boosting, SMOTE, Survival Analysis (LTV) |
+| **MLOps Pipeline** | MLflow, DVC | Automated experiment tracking and data versioning |
+| **Containerization**| Docker, Docker Compose | Isolated, reproducible execution environments |
+| **Monitoring** | Prometheus, Grafana | Real-time metric scraping and observability |
+
+---
+
+<div align="center">
+  <i>Architected with ❤️ for the Dicoding "Membangun Sistem Machine Learning" Certification.</i>
+</div>
