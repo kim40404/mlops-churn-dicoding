@@ -39,6 +39,17 @@ By integrating a finely tuned **XGBoost Algorithm** with **SMOTE (Synthetic Mino
 
 ---
 
+## 📊 Dataset & Business Context
+
+The AI engine in this project is trained on the **Telco Customer Churn Dataset** (a widely recognized synthetic dataset from IBM). 
+- **The Data:** It contains 7,043 customer profiles, including demographics, account information (Tenure, Contract Type, Payment Method), and subscribed services.
+- **The Problem:** The dataset is highly imbalanced (only ~26% of customers actually churned).
+- **The Solution:** The pipeline utilizes SMOTE to balance the training data, allowing the XGBoost model to accurately recognize the minority class (churners) without overfitting.
+
+During live inference, the Web Dashboard simulates a real-time entry of these customer features by a Business Executive.
+
+---
+
 ## 🏗️ System Architecture Flow
 
 The pipeline is highly decoupled, ensuring that Data Science experimentation is separate from API serving and Telemetry. 

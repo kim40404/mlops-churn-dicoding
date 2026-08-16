@@ -37,6 +37,17 @@ Dengan mengintegrasikan **Algoritma XGBoost** yang disetel secara presisi bersam
 
 ---
 
+## 📊 Dataset & Konteks Bisnis
+
+Mesin AI dalam proyek ini dilatih menggunakan **Dataset Customer Churn Telco** (sebuah dataset sintetis yang sangat diakui dari IBM).
+- **Data:** Dataset ini berisi 7.043 profil pelanggan, mencakup demografi, informasi akun (Tenure, Jenis Kontrak, Metode Pembayaran), dan layanan langganan.
+- **Masalah:** Dataset ini sangat tidak seimbang (hanya ~26% pelanggan yang benar-benar churn).
+- **Solusi:** Pipeline ini menggunakan SMOTE untuk menyeimbangkan data pelatihan, memungkinkan model XGBoost mengenali kelas minoritas (pelanggan yang churn) secara akurat tanpa mengalami *overfitting*.
+
+Selama proses inferensi langsung (*live*), Web Dashboard menyimulasikan masuknya data metrik pelanggan secara real-time oleh seorang Eksekutif Bisnis.
+
+---
+
 ## 🏗️ Alur Arsitektur Sistem
 
 Pipeline ini sangat terpisah (*decoupled*), memastikan bahwa eksperimen *Data Science* terisolasi dari proses penyajian API dan Telemetri.
